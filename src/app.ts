@@ -6,6 +6,7 @@ import express, {
 import logger from "./middleware/logger";
 import { productTypesRoute } from "./modules/product-type/product-type.route";
 import { countriesRoute } from "./modules/countries/countries.route";
+import { leaguesRoute } from "./modules/leagues/leagues.route";
 
 const app: Application = express();
 app.use(express.json());
@@ -22,5 +23,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/product-types", productTypesRoute);
 app.use("/api/countries", countriesRoute);
+app.use("/api/leagues", leaguesRoute);
 
 export default app;
