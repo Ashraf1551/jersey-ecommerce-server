@@ -1,0 +1,7 @@
+node_modules/
+.env
+.env.*
+logger.txt
+PLAN.md
+API_Endpoints.md
+DB_Schema.md
