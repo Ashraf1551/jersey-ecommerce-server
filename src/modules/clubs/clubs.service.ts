@@ -32,7 +32,9 @@ const createClubIntoDB = async (payload: IClub) => {
 
 const getAllClubsFromDB = async () => {
   const result = await pool.query(`
-      SELECT * FROM clubs
+      SELECT clubs.id, clubs.name, clubs.league_id, leagues.name AS league_name
+      FROM clubs
+      JOIN leagues ON clubs.league_id = leagues.id
         `);
   return result;
 };
