@@ -5,6 +5,7 @@ import express, {
 } from "express";
 import logger from "./middleware/logger";
 import { productTypesRoute } from "./modules/product-type/product-type.route";
+import { countriesRoute } from "./modules/countries/countries.route";
 
 const app: Application = express();
 app.use(express.json());
@@ -20,5 +21,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/product-types", productTypesRoute);
+app.use("/api/countries", countriesRoute);
 
 export default app;
