@@ -25,7 +25,7 @@ const getAllProductTypes = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Users retrived successfully!",
+      message: "Product Types retrieved successfully!",
       data: result.rows,
     });
   } catch (error: any) {
@@ -44,7 +44,7 @@ const getSingleProductType = async (req: Request, res: Response) => {
       id as string,
     );
     if (result.rows.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "Product Type Not found!",
         data: {},
@@ -53,7 +53,7 @@ const getSingleProductType = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Product Type retrived successfully!",
+      message: "Product Type retrieved successfully!",
       data: result.rows[0],
     });
   } catch (error: any) {
@@ -75,7 +75,7 @@ const updateProductType = async (req: Request, res: Response) => {
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "Product Type Not found!",
       });
@@ -102,9 +102,9 @@ const deleteProductType = async (req: Request, res: Response) => {
       id as string,
     );
 
-    console.log(result);
+    // console.log(result);
     if (result.rowCount === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "Product Type Not found!",
       });
@@ -129,5 +129,5 @@ export const productTypesController = {
   getAllProductTypes,
   getSingleProductType,
   updateProductType,
-  deleteProductType
+  deleteProductType,
 };

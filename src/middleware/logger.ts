@@ -3,7 +3,7 @@ import fs from "fs";
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
   const log = `[${new Date().toISOString()}] ${req.method} ${req.url}`;
-  console.log(log);
+  // console.log(log);
   fs.appendFile("logger.txt", log + "\n", (err) => {});
   next();
 };

@@ -5,7 +5,7 @@ export const pool = new Pool({
   connectionString: config.connection_string,
 });
 
-export const intiDB = async () => {
+export const initDB = async () => {
   try {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS product_types (
