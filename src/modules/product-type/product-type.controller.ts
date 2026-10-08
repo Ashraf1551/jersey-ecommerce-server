@@ -11,7 +11,7 @@ const createProductTypes = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -29,7 +29,7 @@ const getAllProductTypes = async (req: Request, res: Response) => {
       data: result.rows,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -57,7 +57,7 @@ const getSingleProductType = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -87,7 +87,7 @@ const updateProductType = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -116,7 +116,7 @@ const deleteProductType = async (req: Request, res: Response) => {
       data: {},
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,

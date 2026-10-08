@@ -11,7 +11,7 @@ const createCountry = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -29,7 +29,7 @@ const getAllCountries = async (req: Request, res: Response) => {
       data: result.rows,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -55,7 +55,7 @@ const getSingleCountry = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -85,7 +85,7 @@ const updateCountry = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,
@@ -111,7 +111,7 @@ const deleteCountry = async (req: Request, res: Response) => {
       data: {},
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message,
       error: error,

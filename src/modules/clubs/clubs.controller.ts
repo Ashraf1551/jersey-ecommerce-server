@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
-import { leaguesService } from "./leagues.service";
+import { clubsService } from "./clubs.service";
 
-const createLeague = async (req: Request, res: Response) => {
+const createClub = async (req: Request, res: Response) => {
   try {
-    const result = await leaguesService.createLeagueIntoDB(req.body);
+    const result = await clubsService.createClubIntoDB(req.body);
 
     res.status(201).json({
       success: true,
-      message: "League Created successfully!",
+      message: "Club Created successfully!",
       data: result.rows[0],
     });
   } catch (error: any) {
@@ -19,13 +19,13 @@ const createLeague = async (req: Request, res: Response) => {
   }
 };
 
-const getAllLeagues = async (req: Request, res: Response) => {
+const getAllClubs = async (req: Request, res: Response) => {
   try {
-    const result = await leaguesService.getAllLeaguesFromDB();
+    const result = await clubsService.getAllClubsFromDB();
 
     res.status(200).json({
       success: true,
-      message: "Leagues retrieved successfully!",
+      message: "Clubs retrieved successfully!",
       data: result.rows,
     });
   } catch (error: any) {
@@ -37,21 +37,21 @@ const getAllLeagues = async (req: Request, res: Response) => {
   }
 };
 
-const getSingleLeague = async (req: Request, res: Response) => {
+const getSingleClub = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const result = await leaguesService.getSingleLeagueFromDB(id as string);
+    const result = await clubsService.getSingleClubFromDB(id as string);
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "League Not found!",
+        message: "Club Not found!",
         data: {},
       });
     }
 
     res.status(200).json({
       success: true,
-      message: "League retrieved successfully!",
+      message: "Club retrieved successfully!",
       data: result.rows[0],
     });
   } catch (error: any) {
@@ -63,11 +63,11 @@ const getSingleLeague = async (req: Request, res: Response) => {
   }
 };
 
-const updateLeague = async (req: Request, res: Response) => {
+const updateClub = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const result = await leaguesService.updateLeagueFromDB(
+    const result = await clubsService.updateClubFromDB(
       req.body,
       id as string,
     );
@@ -75,13 +75,13 @@ const updateLeague = async (req: Request, res: Response) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "League Not found!",
+        message: "Club Not found!",
       });
     }
 
     res.status(200).json({
       success: true,
-      message: "League updated successfully!",
+      message: "Club updated successfully!",
       data: result.rows[0],
     });
   } catch (error: any) {
@@ -93,21 +93,21 @@ const updateLeague = async (req: Request, res: Response) => {
   }
 };
 
-const deleteLeague = async (req: Request, res: Response) => {
+const deleteClub = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const result = await leaguesService.deleteLeagueFromDB(id as string);
+    const result = await clubsService.deleteClubFromDB(id as string);
 
     if (result.rowCount === 0) {
       return res.status(404).json({
         success: false,
-        message: "League Not found!",
+        message: "Club Not found!",
       });
     }
 
     res.status(200).json({
       success: true,
-      message: "League deleted successfully!",
+      message: "Club deleted successfully!",
       data: {},
     });
   } catch (error: any) {
@@ -119,10 +119,32 @@ const deleteLeague = async (req: Request, res: Response) => {
   }
 };
 
-export const leaguesController = {
-  createLeague,
-  getAllLeagues,
-  getSingleLeague,
-  updateLeague,
-  deleteLeague,
+const getClubsByLeague = async (req: Request, res: Response) => {
+  const { leagueId } = req.params;
+  try {
+    const result = await clubsService.getClubsByLeagueFromDB(
+      leagueId as string,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Clubs retrieved successfully!",
+      data: result.rows,
+    });
+  } catch (error: any) {
+    res.status(error.status || 500).json({
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
+export const clubsController = {
+  createClub,
+  getAllClubs,
+  getSingleClub,
+  updateClub,
+  deleteClub,
+  getClubsByLeague,
 };

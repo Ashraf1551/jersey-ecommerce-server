@@ -28,6 +28,14 @@ export const initDB = async () => {
         );
         `);
 
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS clubs (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        name VARCHAR(100) NOT NULL UNIQUE,
+        league_id UUID NOT NULL REFERENCES leagues(id) ON DELETE RESTRICT
+        );
+        `);
+
     console.log("Database connected successfully!");
   } catch (error) {
     console.log(error);
